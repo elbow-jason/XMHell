@@ -30,4 +30,23 @@ defmodule XmhellTest do
     assert Xmhell.Parser.get_opening_tag(simple) == expected
   end
 
+  test "test opening regex matches" do
+    %{opening: reg} = Xmhell.Parser.get_regexes
+    assert Regex.match?(reg, "<div> </div>") == true
+    assert Regex.match?(reg, "<div class=\"\"> </div>") == true
+    assert Regex.match?(reg, "<div class=\"col-lg-6\"> </div>") == true
+    assert Regex.match?(reg, "<div class=\"col-lg-6\" id=\"aseasd\"> </div>") == true
+    assert Regex.match?(reg, "<div class=\"col-lg-6\" id=\"aseasd\" asdf=\"\"> </div>") == true
+    assert Regex.match?(reg, "<div class=\"col-lg-6\" id=\"aseasd\" asdf=\"\" ghjk> </div>") == true
+  end
+
+  test "test closing regex matches" do
+    %{closing: reg} = Xmhell.Parser.get_regexes
+    assert Regex.match?(reg, "<div> </div>") == true
+    assert Regex.match?(reg, "<div class=\"\"> </div>") == true
+    assert Regex.match?(reg, "<div class=\"col-lg-6\"> </div>") == true
+    assert Regex.match?(reg, "<div class=\"col-lg-6\" id=\"aseasd\"> </div>") == true
+    assert Regex.match?(reg, "<div class=\"col-lg-6\" id=\"aseasd\" asdf=\"\"> </div>") == true
+    assert Regex.match?(reg, "<div class=\"col-lg-6\" id=\"aseasd\" asdf=\"\" ghjk> </div>") == true
+  end
 end
