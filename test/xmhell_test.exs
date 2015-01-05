@@ -1,6 +1,14 @@
 defmodule XmhellTest do
   use ExUnit.Case
 
+  def simple do
+    """
+    <div class="giant">
+      <h1> Yea </h1>
+    </div>
+    """
+  end
+
   def sample_xml do
     """
     <outtermost tag="true">
@@ -17,10 +25,9 @@ defmodule XmhellTest do
     """
   end
 
-
-  test "sample is returned as a list of tuples" do
-    result = Xmlhell.parse(sample_xml)
-    assert is_list(result)
-    assert result |> hd |> is_tuple
+  test "get_opening_tag returns the opening tag" do
+    expected = "<div class=\"giant\">"
+    assert Xmhell.Parser.get_opening_tag(simple) == expected
   end
+
 end
